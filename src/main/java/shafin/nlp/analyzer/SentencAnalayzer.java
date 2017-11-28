@@ -18,7 +18,7 @@ public class SentencAnalayzer {
 	}
 	
 	public List<String> getSentenceTokens() {
-		return SentenceSpliter.getSentenceTokenListBn(TEXT);
+		return SentenceSpliter.getSentenceTokenListBn1(TEXT);
 	}
 	
 	public static void main(String[] args) {

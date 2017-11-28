@@ -1,4 +1,4 @@
-package shafin.nlp.corpus;
+package shafin.shafin.nlp.corpus;
 
 import java.io.File;
 import java.io.IOException;
@@ -74,7 +74,7 @@ public class CorpusAnalysis {
 		for (Document document : this.DOC_LIST) {
 			
 			String article = StringTool.removeUnicodeSpaceChars(new StringBuilder(document.getArticle()));
-			LinkedList<String> SENTENCES = SentenceSpliter.getSentenceTokenListBn(article);
+			LinkedList<String> SENTENCES = SentenceSpliter.getSentenceTokenListBn1(article);
 			List<String> manualKPs = document.getManualKeyphrases();
 			
 			for (String kp : manualKPs) {

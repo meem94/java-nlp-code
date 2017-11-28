@@ -73,7 +73,7 @@ public class JsoupParser {
 	public Response getResponseFromPostRequest(String url, HashMap<String, String> header, HashMap<String, String> body,
 			Map<String, String> cookies) throws IOException {
 		Connection con = Jsoup.connect(url);
-
+                                    
 		Iterator headIterator = header.entrySet().iterator();
 		while (headIterator.hasNext()) {
 			Map.Entry data = (Map.Entry) headIterator.next();
@@ -82,6 +82,7 @@ public class JsoupParser {
 
 		Response response = con.cookies(cookies).data(body).timeout(TIME_OUT_VALUE).method(Connection.Method.POST)
 				.execute();
+       
 		return response;
 	}
 

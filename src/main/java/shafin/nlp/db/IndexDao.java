@@ -109,6 +109,7 @@ public class IndexDao extends BasicDao<TermIndex> {
 	}
 
 	public List<TermIndex> getIndexesByDocID(int docId) {
+		/// docID die kono ekta doc er shob column value db theke nie asha
 		try {
 			String query = "SELECT * FROM term_index where doc_id = ? ";
 			this.qs = DB_CONN.getConnection().prepareStatement(query);
@@ -129,7 +130,7 @@ public class IndexDao extends BasicDao<TermIndex> {
 			}
 			return terms;
 		} catch (IllegalStateException | SQLException e) {
-			e.printStackTrace();
+                                                      e.printStackTrace();
 		} finally {
 			leaveGracefully();
 		}

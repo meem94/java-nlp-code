@@ -87,7 +87,7 @@ public class DocumentIndexer {
 						.convertToModel(shafin.nlp.corpus.model.Document.class);
 
 				String article = StringTool.removeUnicodeSpaceChars(new StringBuilder(document.getArticle()));
-				LinkedList<String> SENTENCES = SentenceSpliter.getSentenceTokenListBn(article);
+				LinkedList<String> SENTENCES = SentenceSpliter.getSentenceTokenListBn1(article);
 
 				createIndex(isTrain, docID, article, SENTENCES);
 
@@ -158,7 +158,9 @@ public class DocumentIndexer {
 			 * filter NGram for removing tokens start or ends with suffixed
 			 * verbs
 			 */
-			if (!this.stopWordFilter.doesContainStopWordInBoundary(token)) {
+
+			if (!this.stopWordFilter.doesContainStopWordInBoundary1(token)) {
+
 				if (!this.verbSuffixFilter.doesStartOrEndsWithVerbSuffix(token)) {
 
 					int tf = FeatureExtractor.getTermOccurrenceCount(TEXT, token);
@@ -186,8 +188,8 @@ public class DocumentIndexer {
 	}
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
-		String train = "D:/home/dw/json/QUALIFIED/TRAIN/";
-		String test = "D:/home/dw/json/QUALIFIED/TEST/";
+		String train = "dw/json/QUALIFIED/TRAIN/";
+		String test = "dw/json/QUALIFIED/TEST/";
 		DocumentIndexer indexer = new DocumentIndexer(train, test, true, true);
 		indexer.iterAndIndexDocuments();
 

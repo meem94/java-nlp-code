@@ -106,7 +106,7 @@ public class BanglaWordTokenizer extends Tokenizer {
 
 		// Execute this block if no more SPLIT_TOKEN are found, but there is
 		// still some text remaining in the string. For example, this saves
-		// “আইরিশ" in "বায়োমেট্রিকস ফিচার, যেমন: আঙুলের ছাপ, হাতের ছাপ,আইরিশ".
+		
 		else if (this.position < this.stringToTokenize.length()) {
 			String nextToken = this.stringToTokenize.substring(this.position);
 			this.charTermAttribute.append(nextToken);

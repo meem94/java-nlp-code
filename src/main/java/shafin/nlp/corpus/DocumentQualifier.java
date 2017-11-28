@@ -82,7 +82,7 @@ public class DocumentQualifier {
 					Document document = (shafin.nlp.corpus.model.Document) jsonProcessor.convertToModel(Document.class);
 
 					String article = StringTool.removeUnicodeSpaceChars(new StringBuilder(document.getArticle()));
-					LinkedList<String> SENTENCES = SentenceSpliter.getSentenceTokenListBn(article);
+					LinkedList<String> SENTENCES = SentenceSpliter.getSentenceTokenListBn1(article);
 
 					document = qualifyDocuemnt(document, SENTENCES);
 

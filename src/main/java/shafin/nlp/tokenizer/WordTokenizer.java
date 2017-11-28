@@ -1,9 +1,14 @@
-package shafin.nlp.tokenizer;
+package nlp.tokenizer;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+/**
+ *
+ * @author MeeMahir
+ * @deprecated
+ */
 @Deprecated
 public class WordTokenizer {
 

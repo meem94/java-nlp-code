@@ -1,4 +1,4 @@
-package shafin.nlp.util;
+package shafin.shafin.nlp.util;
 
 import java.util.ArrayList;
 import java.util.List;

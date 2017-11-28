@@ -57,8 +57,9 @@ public class NGramRanking {
 			pfo.put(entry.getKey(), value.getPfo());
 			combined.put(entry.getKey(), value.getCombind());
 		}
-
+        //System.out.println(tfIdf);
 		tfIdf = MapUtil.normalizeMapValue(tfIdf);
+        //System.out.println(tfIdf);
 		pfo = MapUtil.normalizeMapValue(pfo);
 		combined = MapUtil.normalizeMapValue(combined);
 
@@ -109,10 +110,11 @@ public class NGramRanking {
 
 	public Map<String, TermValue> getFeatureVector(int docId) throws IOException {
 		Map<String, TermValue> termVector = new HashMap<>();
-		List<TermIndex> terms = indexService.getIndexTerm(docId);
+		List<TermIndex> terms = indexService.getIndexTerm(docId); // ekta doc er shob features nie asha
 		int numDocs = indexService.countDocs();
 
 		for (TermIndex term : terms) {
+			//System.out.println(term.getPs());
 			termVector.put(term.getTerm(), new TermValue(term, numDocs));
 		}
 

@@ -68,7 +68,7 @@ public class VerbSuffixFilter {
 		return suffixedVerbsToken;
 	}
 	
-	public boolean isVerbToken(String token){
+	public  boolean isVerbToken(String token){
 		this.posTagger.setTEXT(token);
 		List<String> verbs = posTagger.findVerbTaggedTokens();
 		return !verbs.isEmpty();
@@ -90,7 +90,7 @@ public class VerbSuffixFilter {
 		return filteredList;
 	}
 	
-	public boolean doesStartOrEndsWithVerbSuffix(String token){
+	public  boolean doesStartOrEndsWithVerbSuffix(String token){
 		BanglaWordAnalyzer wordAnalyzer = new BanglaWordAnalyzer(new StringReader(token));
 		List<String> wordTokens = wordAnalyzer.getTokenList();
 		wordAnalyzer.close();

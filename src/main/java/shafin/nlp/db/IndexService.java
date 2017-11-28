@@ -14,114 +14,115 @@ import shafin.nlp.util.FileHandler;
  */
 public class IndexService {
 
-	private final IndexDao dao;
+    private final IndexDao dao;
 
-	public IndexService() {
-		this.dao = new IndexDao(SQLiteDBConn.getSQLiteDBConn());
-	}
+    public IndexService() {
 
-	public void recreatIndex() {
-		dao.deleteTable();
-		dao.createTable();
-	}
+        this.dao = new IndexDao(SQLiteDBConn.getSQLiteDBConn());
+    }
 
-	public boolean isExists(int docId, String term) {
-		return dao.isExistsByDocIdAndTerm(docId, term);
-	}
+    public void recreatIndex() {
+        dao.deleteTable();
+        dao.createTable();
+    }
 
-	public boolean setAsManualKP(int docId, String term) {
-		return dao.updateIsManualKP(docId, term, true);
-	}
+    public boolean isExists(int docId, String term) {
+        return dao.isExistsByDocIdAndTerm(docId, term);
+    }
 
-	public List<TermIndex> getIndexTerm(int docId) {
-		return dao.getIndexesByDocID(docId);
-	}
+    public boolean setAsManualKP(int docId, String term) {
+        return dao.updateIsManualKP(docId, term, true);
+    }
 
-	public boolean insertIndex(TermIndex index) {
-		return dao.insertTerm(index.getDocId(), index.getTerm(), index.getTf(), index.getPs());
-	}
+    public List<TermIndex> getIndexTerm(int docId) {
+        return dao.getIndexesByDocID(docId);
+    }
 
-	public boolean batchInsertIndex(List<TermIndex> termIndexes) {
-		return dao.insertTermInBatch(termIndexes);
-	}
+    public boolean insertIndex(TermIndex index) {
+        return dao.insertTerm(index.getDocId(), index.getTerm(), index.getTf(), index.getPs());
+    }
 
-	public int countDocs() {
-		return dao.getDocCount();
-	}
-	
-	public int countTrainDocs() {
-		return dao.getTrainDocCount();
-	}
-	
-	public int countTestDocs() {
-		return dao.getTestDocCount();
-	}
+    public boolean batchInsertIndex(List<TermIndex> termIndexes) {
+        return dao.insertTermInBatch(termIndexes);
+    }
 
-	public int trainTermCount() {
-		return dao.getTrainTermCount();
-	}
+    public int countDocs() {
+        return dao.getDocCount();
+    }
 
-	public int testTermCount() {
-		return dao.getTestTermCount();
-	}
+    public int countTrainDocs() {
+        return dao.getTrainDocCount();
+    }
 
-	public int termCountByDoc(int docId){
-		return dao.getTermCountByDoc(docId);
-	}
-	
-	public boolean updateDF() {
-		return dao.updateDF(false);
-	}
+    public int countTestDocs() {
+        return dao.getTestDocCount();
+    }
 
-	public List<TermIndex> getTrainSet(int page, int size) {
-		return dao.getIndexesByIsTrainPagination(true, page, size);
-	}
-	
-	public List<TermIndex> getTrainSet(int docId, int page, int size) {
-		return dao.getIndexesByIsTrainPagination(docId, true, page, size);
-	}
+    public int trainTermCount() {
+        return dao.getTrainTermCount();
+    }
 
-	public List<TermIndex> getTestSet(int page, int size) {
-		return dao.getIndexesByIsTrainPagination(false, page, size);
-	}
-	
-	public List<TermIndex> getTestSet(int docId, int page, int size) {
-		return dao.getIndexesByIsTrainPagination(docId, false, page, size);
-	}
+    public int testTermCount() {
+        return dao.getTestTermCount();
+    }
 
-	public boolean enlistAsZeroFreqTerm(TermIndex index) {
-		try {
-			return dao.insertAsDiscardedTerm(index, IndexDao.zeroFreqFile);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
+    public int termCountByDoc(int docId) {
+        return dao.getTermCountByDoc(docId);
+    }
 
-	public boolean enlistAsStopWordContainedTerm(TermIndex index) {
-		try {
-			return dao.insertAsDiscardedTerm(index, IndexDao.stopFilteredFile);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
+    public boolean updateDF() {
+        return dao.updateDF(false);
+    }
 
-	public boolean enlistAsVerbSuffixedTerm(TermIndex index) {
-		try {
-			return dao.insertAsDiscardedTerm(index, IndexDao.verbSuffxFilteredFile);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
+    public List<TermIndex> getTrainSet(int page, int size) {
+        return dao.getIndexesByIsTrainPagination(true, page, size);
+    }
 
-	public boolean writeDocumentToDisk(Document document, String fileURI) {
-		try {
-			return FileHandler.writeFile(fileURI, document.toJsonString());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
+    public List<TermIndex> getTrainSet(int docId, int page, int size) {
+        return dao.getIndexesByIsTrainPagination(docId, true, page, size);
+    }
+
+    public List<TermIndex> getTestSet(int page, int size) {
+        return dao.getIndexesByIsTrainPagination(false, page, size);
+    }
+
+    public List<TermIndex> getTestSet(int docId, int page, int size) {
+        return dao.getIndexesByIsTrainPagination(docId, false, page, size);
+    }
+
+    public boolean enlistAsZeroFreqTerm(TermIndex index) {
+        try {
+            return dao.insertAsDiscardedTerm(index, IndexDao.zeroFreqFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean enlistAsStopWordContainedTerm(TermIndex index) {
+        try {
+            return dao.insertAsDiscardedTerm(index, IndexDao.stopFilteredFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean enlistAsVerbSuffixedTerm(TermIndex index) {
+        try {
+            return dao.insertAsDiscardedTerm(index, IndexDao.verbSuffxFilteredFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean writeDocumentToDisk(Document document, String fileURI) {
+        try {
+            return FileHandler.writeFile(fileURI, document.toJsonString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

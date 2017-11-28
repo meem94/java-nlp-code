@@ -56,8 +56,7 @@ public class BanglaWordAnalyzer extends Analyzer {
 	}
 
 	public static void main(String[] args) {
-		String text = "অবশ্য জাতীয় পরিচয় নিবন্ধন আইন-২০১০-এ বলা আছে, "
-				+ "যেমন: আঙুলের ছাপ,স্বাক্ষর এবং কণ্ঠস্বর সংগ্রহ ও সংরক্ষণ করতে হবে। ";
+		String text =  "গুগলের নতুন দুটি স্মার্ট  ওয়াচ আসছে শীঘ্র  ই, যাদের কোড নাম 'আঙ্গেলফিশ' ও 'সোর্ডফিশ' ।";;;
 		Reader reader = new StringReader(text);
 
 		BanglaWordAnalyzer analyzer = new BanglaWordAnalyzer(reader);

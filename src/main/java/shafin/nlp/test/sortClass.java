@@ -1,4 +1,4 @@
-package shafin.nlp.test;
+package nlp.test;
 
 /**
  *

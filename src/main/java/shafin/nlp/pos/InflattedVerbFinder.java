@@ -19,7 +19,7 @@ public class InflattedVerbFinder {
 		PosTagger tagger = new PosTagger();
 		Set<String> VERB_SET = new HashSet<>();
 		
-		String courpusPath = "D:/home/dw/json/test/";
+		String courpusPath = "/dw/json/test/";
 		CorpusIO io = new CorpusIO(courpusPath, ".json", true);
 		
 		int docCount = 0;

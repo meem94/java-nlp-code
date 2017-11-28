@@ -1,9 +1,9 @@
 package shafin.nlp.analyzer;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
+import java.io.*;
+
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.apache.lucene.analysis.Analyzer;
@@ -14,6 +14,7 @@ import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 
 import shafin.nlp.tokenizer.BanglaWordTokenizer;
 import shafin.nlp.tokenizer.NoneWordTokenFilter;
+import shafin.nlp.tokenizer.SentenceSpliter;
 
 /*
  * Author : Shafin Mahmud
@@ -62,9 +63,24 @@ public class NGramAnalyzer extends Analyzer {
 		TokenStream noneAlphabetFilter = new NoneWordTokenFilter(shingleFilter);
 		return new TokenStreamComponents(tokenizer, noneAlphabetFilter);
 	}
+                  public static HashSet<String> generateNGramTokens() throws IOException {
+                                    
+		HashSet<String> ngrams=new HashSet<String>();  
+                                    HashSet<String> list=new HashSet<String>();  
+                                    for(String text :  SentenceSpliter.getSentenceTokenArrayBn()){
+                                            
+                                            NGramAnalyzer analyzer = new NGramAnalyzer(new StringReader(text), 2, 3);                
+                                            ngrams = analyzer.getNGramTokens();
+                                             for (String nn : ngrams) 
+                                                    list.add(nn);
+      
+                                    }
+                                    return list;
+	}
 
-	public List<String> getNGramTokens() throws IOException {
-		List<String> nGramTokens = new ArrayList<>();
+	public HashSet<String> getNGramTokens() throws IOException {
+                                    
+		 HashSet<String> nGramTokens = new HashSet<String>();  
 
 		TokenStream tokenStream = tokenStream("content", reader);
 		CharTermAttribute charTermAttribute = tokenStream.addAttribute(CharTermAttribute.class);
@@ -76,19 +92,43 @@ public class NGramAnalyzer extends Analyzer {
 		}
 		return nGramTokens;
 	}
-
+                    
+//                                  BnStopWordFilter stopWordFilter = new BnStopWordFilter();
+//
+//		String text = "আমি বাংলায় কথা বলি";
+//		NGramAnalyzer analyzer = new NGramAnalyzer(new StringReader(text), 2, 3);
+//                                    
+//		HashSet<String> ngrams = analyzer.getNGramTokens();
+//		analyzer.close();
+//                                    
+//                                    HashSet<String> set=new HashSet<String>();  
+//		 for(String ngram : ngrams){ 
+//                                             set.add(stopWordFilter.doesContainStopWordInBoundary(ngram)); 
+//                                    }
+//                                     for(String s : set){ 
+//                                             System.out.println(s);
+//                                    }
+//		 
 	public static void main(String[] args) throws IOException {
-		String text = "আর ‘হাউপ্টশুলে'-র ছাত্র-ছাত্রীরা ন'বছর পরেই স্কুলের পাঠ শেষ করে ‘মিটলারে রাইফে'-র সার্টিফিকেট পকেটে নিয়ে পেশাগত প্রশিক্ষণের দিকে চলে যায়৷";
-		NGramAnalyzer analyzer = new NGramAnalyzer(new StringReader(text), 2, 3);
+                                   
+                                    FileWriter write = new FileWriter( "E:/Project300/output.txt" , false);
+                                    PrintWriter print_line = new PrintWriter( write );    
 
-		System.out.println(text);
-		List<String> tokens = analyzer.getNGramTokens();
-		for (String token : tokens) {
-			System.out.println(token);
+                                    HashSet<String> ngrams=new HashSet<String>();  
+                                    for(String text :  SentenceSpliter.getSentenceTokenArrayBn()){
+                                           
+                                            NGramAnalyzer analyzer = new NGramAnalyzer(new StringReader(text), 2, 3);                
+                                            ngrams = analyzer.getNGramTokens();
+                                             for (String nn : ngrams) {
+                                                    print_line.println(nn);
 
-		}
-
-		analyzer.close();
+                                             }
+                                          
+                                    }
+                                    
+                                    
+		
+                                    print_line.close();
 	}
 
 }

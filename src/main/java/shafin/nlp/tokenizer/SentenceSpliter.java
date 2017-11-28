@@ -1,7 +1,7 @@
 package shafin.nlp.tokenizer;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -16,17 +16,28 @@ public class SentenceSpliter {
 	public static final String ENG_SPLIT_REGEX = "(?<!\\w\\.\\w.)(?<![A-Z][a-z]\\.)(?<=\\.|\\?)\\s";
 	public static final String BAN_SPLIT_REGEX = "(?<!\\w\\.\\w.)(?<![A-Z][a-z]\\.)(?<=\\?|৷|।|!)";
 
-	public static String[] getSentenceTokenArrayBn(String text) {
-		List<String> list = getSentenceTokenListBn(text);
-		String[] array = {};
-		return list.toArray(array);
+	public static  HashSet<String>  getSentenceTokenArrayBn() throws FileNotFoundException, IOException {
+		String text =  new Scanner(new File("resources/input.txt")).useDelimiter("\\Z").next();
+                                    HashSet<String> arr = getSentenceTokenListBn(text);
+                                    return  arr;
 	}
 
-	public static LinkedList<String> getSentenceTokenListBn(String text) {
+	public static HashSet<String> getSentenceTokenListBn(String text) {
 		text = replaceAll(UNICODE_SPACE_CHARACTERS, " ", text);
 		text = StringUtils.normalizeSpace(text);
+//                                     
 		LinkedList<String> list = RegexUtil.getSplittedTokens(text, BAN_SPLIT_REGEX);
-		return list;
+		HashSet<String> tokens=new HashSet<String>();  
+                                    for(String s: list)
+                                    {
+                                        String[] parts = s.split("[\\(|\\)|,|;|?|‘’|''|।|\\{|\\}|\\[|\\]]+");
+                                        for(String ss : parts)
+                                        {
+                                            tokens.add(ss);
+                                           
+                                        }
+                                    }
+                                    return  tokens;
 	}
 
 	public static String replaceAll(String[] shitStrings, String replaceWith, String text) {
@@ -36,10 +47,32 @@ public class SentenceSpliter {
 		}
 		return sb.toString();
 	}
+                    public static LinkedList<String> getSentenceTokenListBn1(String text) {
+		text = replaceAll(UNICODE_SPACE_CHARACTERS, " ", text);
+		text = StringUtils.normalizeSpace(text);
+//                                     
+		LinkedList<String> list = RegexUtil.getSplittedTokens(text, BAN_SPLIT_REGEX);
+		LinkedList<String> tokens=new LinkedList<>();  
+                                    for(String s: list)
+                                    {
+                                        String[] parts = s.split("[\\(|\\)|,|;|?|‘’|''|।|\\{|\\}|\\[|\\]]+");
+                                        tokens.addAll(Arrays.asList(parts));
+                                    }
+                                    return  tokens;
+	}
 
-	public static void main(String[] args) {
-		String text = "আইএস তাদের সদস্যদের ‘খিলাফতের সৈনিক’   বলে সম্বোধন করে!গুলশান হামলায় ডা. জড়িত ও পরে অভিযানে নিহত পাঁচ জঙ্গিকে তারা একই সম্বোধন করে এবং হামলার দায় স্বীকার করে। যদিও বাংলাদেশের আইনশৃঙ্খলা রক্ষাকারী বাহিনীর কর্মকর্তারা বলেছেন, গুলশান হামলায় আইএস নয়, নব্য জেএমবি জড়িত। তামিম চৌধুরী এই নব্য জেএমবির নেতা এবং ১ জুলাই গুলশানের হলি আর্টিজানে হামলার অন্যতম সমন্বয়ক ও পরিকল্পনাকারী। গত ২৭ আগস্ট নারায়ণগঞ্জে জঙ্গিবিরোধী পুলিশের এক অভিযানে তামিম ও তাঁর দুই সহযোগী নিহত হন।";
+
+	public static void main(String[] args) throws IOException {
+                                    FileWriter write = new FileWriter( "E:/Project300/output.txt" , false);
+                                    PrintWriter print_line = new PrintWriter( write );    
+		String text =  new Scanner(new File("E:/Project300/input.txt")).useDelimiter("\\Z").next();
+                           
 		for (String string : getSentenceTokenListBn(text))
-			System.out.println(string);
+                                    {
+//                                             String[] parts = string.split("[\\(|\\)|,|;|?|‘’|''|।|\\{|\\}|\\[|\\]]+");
+//                                             for(String s : parts)
+                                                print_line.println(string);                                 
+                                    }
+                                    print_line.close();
 	}
 }

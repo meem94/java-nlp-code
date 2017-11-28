@@ -1,19 +1,16 @@
 package shafin.nlp.main;
 
-import java.io.IOException;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.deeplearning4j.eval.Evaluation;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
-import org.nd4j.linalg.api.ndarray.INDArray;
-
 import shafin.nlp.ann.MLPLinearClassifier;
 import shafin.nlp.corpus.model.TermIndex;
 import shafin.nlp.corpus.model.TermValue;
 import shafin.nlp.db.IndexService;
 import shafin.nlp.util.Logger;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 public class MLPExtractor {
 
@@ -21,8 +18,8 @@ public class MLPExtractor {
 	private final MLPLinearClassifier classifier;
 	private final MultiLayerNetwork model;
 
-	private final String trainCSV = "D:/home/dw/json/QUALIFIED/TRAIN500.csv";
-	private final String testCSV = "D:/home/dw/json/QUALIFIED/TEST100.csv";
+	private final String trainCSV = "dw/json/QUALIFIED/TRAIN.csv";
+	private final String testCSV = "dw/json/QUALIFIED/TEST.csv";
 
 	public MLPExtractor() throws IOException, InterruptedException {
 		this.indexService = new IndexService();
@@ -31,7 +28,7 @@ public class MLPExtractor {
 	}
 
 	public void evaluate() throws IOException, InterruptedException {
-		Evaluation evaluation = this.classifier.test(model);
+		Evaluation evaluation = this.classifier.test(model); // train model return korlam
 		System.out.println(evaluation.stats());
 	}
 
@@ -65,9 +62,9 @@ public class MLPExtractor {
 			vec[0][1] = value.getIdf();
 			vec[0][2] = value.getPfo();
 
-			INDArray ind = this.classifier.generatePrediction(model, vec);//e.g. [[0.37, 0.63]] 
+			/*INDArray ind = this.classifier.generatePrediction(model, vec);//e.g. [[0.37, 0.63]]
 			double prob = ind.getColumn(1).getDouble(0); 
-			value.setProbability(prob);
+			value.setProbability(prob);*/
 		}
 
 		Collections.sort(valueList);
@@ -80,7 +77,7 @@ public class MLPExtractor {
 
 	public static void main(String[] args) throws IOException, InterruptedException {
 		MLPExtractor extractor = new MLPExtractor();
-		extractor.evaluate();
+		extractor.evaluate(); // train model banailam
 		extractor.automatedKPFromTestSet(10001);
 	}
 }
