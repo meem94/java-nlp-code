@@ -134,7 +134,7 @@ public class TermValue implements Comparable<TermValue> {
 
 	public String toCsvString() {
 		int dataClazz = this.isManual() ? 1 : 0;
-		return dataClazz + "," + this.getTf() + "," + this.getIdf() + "," + this.getPfo();
+		return dataClazz + "," + this.getTf() + "," + this.getIdf() + "," + this.getPfo()+ "," + this.getCombind();
 	}
 
 	@Override

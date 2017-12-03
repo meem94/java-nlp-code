@@ -132,11 +132,9 @@ public class DocumentIndexer {
 		indexService.updateDF();
 	}
 
-	private void createIndex(boolean isTrain, final int docID, final String TEXT, LinkedList<String> SENTENCES)
-			throws IOException {
+	private void createIndex(boolean isTrain, final int docID, final String TEXT, LinkedList<String> SENTENCES) throws IOException {
 		Set<String> TOKENS = new HashSet<>();
 		for (String sentence : SENTENCES) {
-
 			if (NGRAM_FLAG) {
 				NGramAnalyzer analyzer = new NGramAnalyzer(new StringReader(sentence), MIN_NGRAM, MAX_NGRAM);
 				TOKENS.addAll(analyzer.getNGramTokens());

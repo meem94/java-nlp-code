@@ -40,7 +40,7 @@ public class DataSetGenerator {
 		int size = 1000;
 		int totalPage = (total / size) + 1;
 
-		String fileName = TYPE.name() + numDocs + ".csv";
+		String fileName = TYPE.name() +".csv";
 		File file = new File(OUT_PUT_PATH + "\\" + fileName);
 		if (file.exists()) {
 			file.delete();
@@ -64,8 +64,9 @@ public class DataSetGenerator {
 
 		for (TermValue value : valueList) {
 			String data  = value.toCsvString();
+			//data = data + ",0.0";
 			FileHandler.appendFile(OUT_PUT_PATH + "\\" + fileName, data + "\n");
-			Logger.print("WRITTING : "+data);
+			Logger.print("WRITTING : "+value.getTerm() + " " +data);
 		}
 	}
 
@@ -95,10 +96,10 @@ public class DataSetGenerator {
 	}
 
 	public static void main(String[] args) throws IOException {
-		DataSetGenerator dataSetGenerator = new DataSetGenerator(DatasetType.TEST, "D:/home/dw/json/QUALIFIED");
+		DataSetGenerator dataSetGenerator = new DataSetGenerator(DatasetType.TEST, "dw/json/QUALIFIED");
 		dataSetGenerator.convertToCSV();
-		
-		dataSetGenerator = new DataSetGenerator(DatasetType.TRAIN, "D:/home/dw/json/QUALIFIED");
+
+		dataSetGenerator = new DataSetGenerator(DatasetType.TRAIN, "dw/json/QUALIFIED");
 		dataSetGenerator.convertToCSV();
 	}
 

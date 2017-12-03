@@ -2,6 +2,7 @@ package shafin.nlp.main;
 
 import org.deeplearning4j.eval.Evaluation;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
+import org.nd4j.linalg.api.ndarray.INDArray;
 import shafin.nlp.ann.MLPLinearClassifier;
 import shafin.nlp.corpus.model.TermIndex;
 import shafin.nlp.corpus.model.TermValue;
@@ -57,20 +58,27 @@ public class MLPExtractor {
 	public void automatedKPFromTestSet(int docId) {
 		List<TermValue> valueList = loadTermList(docId);
 		for (TermValue value : valueList) {
-			double[][] vec = new double[1][3];
+			double[][] vec = new double[1][4];
 			vec[0][0] = value.getTf();
 			vec[0][1] = value.getIdf();
 			vec[0][2] = value.getPfo();
+			vec[0][3] = value.getCombind();
 
-			/*INDArray ind = this.classifier.generatePrediction(model, vec);//e.g. [[0.37, 0.63]]
+			INDArray ind = this.classifier.generatePrediction(model, vec);//e.g. [[0.37, 0.63]]
 			double prob = ind.getColumn(1).getDouble(0); 
-			value.setProbability(prob);*/
+			value.setProbability(prob);
 		}
 
 		Collections.sort(valueList);
+		int c=0;
 		for (TermValue value : valueList) {
-			String status = value.isManual() ? "OK!" : "   ";
-			System.out.println(status + " : " + value.getTerm() + " : " + value.getProbability());
+				if(c==10) break;
+			//if(value.getProbability()>=0.99){
+				String status = value.isManual() ? "OK!" : "   ";
+				System.out.println(status + " : " + value.getTerm() + " : " + value.getProbability());
+				c++;
+			//}
+			///else if(value.isManual()) System.out.println("OK : "+ value.getTerm());
 		}
 
 	}
@@ -78,6 +86,6 @@ public class MLPExtractor {
 	public static void main(String[] args) throws IOException, InterruptedException {
 		MLPExtractor extractor = new MLPExtractor();
 		extractor.evaluate(); // train model banailam
-		extractor.automatedKPFromTestSet(10001);
+		extractor.automatedKPFromTestSet(10186);
 	}
 }

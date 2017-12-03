@@ -28,16 +28,16 @@ public class SentenceSpliter {
 //                                     
 		LinkedList<String> list = RegexUtil.getSplittedTokens(text, BAN_SPLIT_REGEX);
 		HashSet<String> tokens=new HashSet<String>();  
-                                    for(String s: list)
-                                    {
-                                        String[] parts = s.split("[\\(|\\)|,|;|?|‘’|''|।|\\{|\\}|\\[|\\]]+");
-                                        for(String ss : parts)
-                                        {
-                                            tokens.add(ss);
-                                           
-                                        }
-                                    }
-                                    return  tokens;
+			for(String s: list)
+			{
+				String[] parts = s.split("[\\(|\\)|,|;|?|‘’|''|।|\\{|\\}|\\[|\\]]+");
+				for(String ss : parts)
+				{
+					tokens.add(ss);
+
+				}
+			}
+			return  tokens;
 	}
 
 	public static String replaceAll(String[] shitStrings, String replaceWith, String text) {
@@ -47,24 +47,24 @@ public class SentenceSpliter {
 		}
 		return sb.toString();
 	}
-                    public static LinkedList<String> getSentenceTokenListBn1(String text) {
+	public static LinkedList<String> getSentenceTokenListBn1(String text) {
 		text = replaceAll(UNICODE_SPACE_CHARACTERS, " ", text);
 		text = StringUtils.normalizeSpace(text);
 //                                     
 		LinkedList<String> list = RegexUtil.getSplittedTokens(text, BAN_SPLIT_REGEX);
 		LinkedList<String> tokens=new LinkedList<>();  
-                                    for(String s: list)
-                                    {
-                                        String[] parts = s.split("[\\(|\\)|,|;|?|‘’|''|।|\\{|\\}|\\[|\\]]+");
-                                        tokens.addAll(Arrays.asList(parts));
-                                    }
-                                    return  tokens;
+		for(String s: list)
+		{
+			String[] parts = s.split("[\\(|\\)|,|;|?|‘’|''|।|\\{|\\}|\\[|\\]]+");
+			tokens.addAll(Arrays.asList(parts));
+		}
+		return  tokens;
 	}
 
 
 	public static void main(String[] args) throws IOException {
-                                    FileWriter write = new FileWriter( "E:/Project300/output.txt" , false);
-                                    PrintWriter print_line = new PrintWriter( write );    
+		FileWriter write = new FileWriter( "E:/Project300/output.txt" , false);
+		PrintWriter print_line = new PrintWriter( write );
 		String text =  new Scanner(new File("E:/Project300/input.txt")).useDelimiter("\\Z").next();
                            
 		for (String string : getSentenceTokenListBn(text))

@@ -28,7 +28,7 @@ public class DocumentQualifier {
 	public static final int DOC_CRITERIA_MKP_NUM = 5;
 	public static final int SPLIT_DOC_IN = 500;
 
-	private String JSON_CORPUS_DIR = "D:/home/dw/json/";
+	private String JSON_CORPUS_DIR = "dw/json/";
 	private String QUALIFIED_DOC_DIR_ROOT = "";
 
 	private List<String> EXISTING_FILE_NAMES;
